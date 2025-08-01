@@ -1,0 +1,170 @@
+---
+export interface Props {
+  isOpen: boolean;
+  member: {
+    name: string;
+    position: string;
+    location: string;
+    experience: string;
+    image: string;
+    education: string;
+    certifications: string[];
+    specialization: string;
+    skills: string[];
+    bio: string;
+    projectsCompleted: number;
+    email: string;
+    linkedin?: string;
+  };
+}
+
+const { isOpen, member } = Astro.props;
+---
+
+<div 
+  id="team-member-modal" 
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 transition-opacity duration-300" 
+  style={isOpen ? "opacity: 1; pointer-events: auto;" : "opacity: 0; pointer-events: none;"}
+>
+  <div 
+    class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform transition-transform duration-300" 
+    style={isOpen ? "transform: scale(1);" : "transform: scale(0.95);"}
+  >
+    <div class="p-6">
+      <!-- Header -->
+      <div class="flex justify-between items-start mb-6">
+        <div class="flex items-start space-x-6">
+          <img 
+            alt={member.name} 
+            class="w-24 h-24 rounded-full object-cover" 
+            src={member.image}
+          >
+          <div>
+            <h3 class="text-2xl font-bold text-foreground mb-1">{member.name}</h3>
+            <p class="text-primary font-medium text-lg mb-2">{member.position}</p>
+            <p class="text-muted-foreground">{member.location} • {member.experience}</p>
+          </div>
+        </div>
+        <button 
+          id="close-team-modal" 
+          class="text-muted-foreground hover:text-foreground transition-colors text-xl"
+        >
+          ✕
+        </button>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Left Column -->
+        <div>
+          <h4 class="font-semibold text-foreground mb-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-graduation-cap w-5 h-5 mr-2">
+              <path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"></path>
+              <path d="M22 10v6"></path>
+              <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"></path>
+            </svg>
+            Formación
+          </h4>
+          <p class="text-muted-foreground mb-4">{member.education}</p>
+          
+          <h4 class="font-semibold text-foreground mb-3 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-5 h-5 mr-2">
+              <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+              <circle cx="12" cy="8" r="6"></circle>
+            </svg>
+            Certificaciones
+          </h4>
+          <ul class="space-y-1">
+            {member.certifications.map(cert => (
+              <li class="text-muted-foreground text-sm">• {cert}</li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Right Column -->
+        <div>
+          <h4 class="font-semibold text-foreground mb-3">Especialización</h4>
+          <p class="text-muted-foreground mb-4">{member.specialization}</p>
+          
+          <h4 class="font-semibold text-foreground mb-3">Habilidades Técnicas</h4>
+          <div class="flex flex-wrap gap-2">
+            {member.skills.map(skill => (
+              <span class="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio -->
+      <div class="bg-accent/10 rounded-lg p-4 mb-6">
+        <p class="text-foreground leading-relaxed">{member.bio}</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="flex items-center justify-between">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-primary">{member.projectsCompleted}</div>
+          <div class="text-sm text-muted-foreground">Proyectos Completados</div>
+        </div>
+        <div class="flex space-x-4">
+          <a 
+            href={`mailto:${member.email}`} 
+            class="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+          >
+            Contactar
+          </a>
+          {member.linkedin && (
+            <a 
+              href={member.linkedin} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="bg-accent text-accent-foreground px-4 py-2 rounded-lg font-medium hover:bg-accent/80 transition-colors"
+            >
+              LinkedIn
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Close modal functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('team-member-modal');
+    const closeBtn = document.getElementById('close-team-modal');
+    const modalContent = modal?.querySelector('div');
+    
+    const closeModal = () => {
+      modal?.style.setProperty('opacity', '0');
+      modal?.style.setProperty('pointer-events', 'none');
+      modalContent?.style.setProperty('transform', 'scale(0.95)');
+    };
+    
+    // Close on button click
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeModal();
+      });
+    }
+    
+    // Close on backdrop click
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+  });
+</script>
