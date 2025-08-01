@@ -2,7 +2,7 @@
 // No props needed for this component
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all">
   <div class="container mx-auto px-6">
     <div class="flex items-center justify-between h-16">
       <!-- Logo and Brand -->
@@ -58,7 +58,7 @@
 
     <!-- Mobile Navigation Menu -->
     <div 
-      class="md:hidden overflow-hidden bg-white/95 backdrop-blur-md border-t border-gray-200 transition-all duration-300"
+      class="md:hidden overflow-hidden transition-all"
       id="mobile-menu"
       style="opacity: 0; height: 0px;"
     >
@@ -87,17 +87,53 @@
   // Mobile menu toggle functionality
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const mobileMenu = document.getElementById('mobile-menu');
+  const navbar = document.getElementById('navbar');
   let isMenuOpen = false;
 
+  // Scroll functionality for navbar background
+  function handleScroll() {
+    const scrollY = window.scrollY;
+    
+    if (scrollY > 0) {
+      // Add background when scrolling
+      navbar!.className = 'fixed top-0 left-0 right-0 z-50 transition-all  bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200';
+      // Also update mobile menu background when scrolled
+      if (isMenuOpen) {
+        mobileMenu!.className = 'md:hidden overflow-hidden bg-white/95 backdrop-blur-md border-t border-gray-200 transition-all ';
+      }
+    } else {
+      // Remove background when at top
+      navbar!.className = 'fixed top-0 left-0 right-0 z-50 transition-all ';
+      // Also update mobile menu background when at top
+      if (isMenuOpen) {
+        mobileMenu!.className = 'md:hidden overflow-hidden transition-all ';
+      }
+    }
+  }
+
+  // Mobile menu toggle
   mobileMenuButton?.addEventListener('click', () => {
     isMenuOpen = !isMenuOpen;
+    const scrollY = window.scrollY;
     
     if (isMenuOpen) {
       mobileMenu!.style.opacity = '1';
       mobileMenu!.style.height = 'auto';
+      // Apply correct background based on scroll position
+      if (scrollY > 0) {
+        mobileMenu!.className = 'md:hidden overflow-hidden bg-white/95 backdrop-blur-md border-t border-gray-200 transition-all duration-300';
+      } else {
+        mobileMenu!.className = 'md:hidden overflow-hidden transition-all duration-300';
+      }
     } else {
       mobileMenu!.style.opacity = '0';
       mobileMenu!.style.height = '0px';
     }
   });
+
+  // Listen for scroll events
+  window.addEventListener('scroll', handleScroll);
+  
+  // Initial check on page load
+  document.addEventListener('DOMContentLoaded', handleScroll);
 </script>
