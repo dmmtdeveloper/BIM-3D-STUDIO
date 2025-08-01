@@ -1,0 +1,152 @@
+---
+export interface Props {
+  projects: Array<{
+    id: number;
+    title: string;
+    fullDescription: string;
+    category: string;
+    location: string;
+    year: string;
+    image: string;
+    stats: {
+      area: string;
+      floors: string;
+      units: string;
+    };
+    technologies: string[];
+  }>;
+}
+
+const { projects } = Astro.props;
+---
+
+<!-- Modal -->
+<div id="project-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 opacity-0 invisible transition-all duration-300">
+  <div id="modal-content" class="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-all duration-300">
+    <div class="p-6">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-start mb-6">
+        <div>
+          <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-2"></h3>
+          <p id="modal-subtitle" class="text-gray-600"></p>
+        </div>
+        <button id="close-modal" class="text-gray-400 hover:text-gray-600 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <!-- Modal Image -->
+      <img id="modal-image" alt="" class="w-full h-64 object-cover rounded-lg mb-6" />
+      
+      <!-- Stats Grid -->
+      <div id="modal-stats" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        <!-- Stats will be populated dynamically -->
+      </div>
+      
+      <!-- Description -->
+      <p id="modal-description" class="text-gray-900 mb-4"></p>
+      
+      <!-- Technologies -->
+      <div id="modal-technologies" class="flex flex-wrap gap-2">
+        <!-- Technologies will be populated dynamically -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  class ProjectModal {
+    private modal: HTMLElement;
+    private modalContent: HTMLElement;
+    private closeModalBtn: HTMLElement;
+    private projects: any[];
+
+    constructor(projects: any[]) {
+      this.modal = document.getElementById('project-modal')!;
+      this.modalContent = document.getElementById('modal-content')!;
+      this.closeModalBtn = document.getElementById('close-modal')!;
+      this.projects = projects;
+      
+      this.init();
+    }
+
+    private init() {
+      // Close modal events
+      this.closeModalBtn.addEventListener('click', () => this.closeModal());
+      this.modal.addEventListener('click', (e) => {
+        if (e.target === this.modal) {
+          this.closeModal();
+        }
+      });
+      
+      // Close modal with Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !this.modal.classList.contains('invisible')) {
+          this.closeModal();
+        }
+      });
+    }
+    
+    public openModal(projectId: number) {
+      const project = this.projects.find(p => p.id === projectId);
+      if (!project) return;
+      
+      // Populate modal content
+      document.getElementById('modal-title')!.textContent = project.title;
+      document.getElementById('modal-subtitle')!.textContent = `${project.category} • ${project.location} • ${project.year}`;
+      document.getElementById('modal-image')!.setAttribute('src', project.image);
+      document.getElementById('modal-image')!.setAttribute('alt', project.title);
+      document.getElementById('modal-description')!.textContent = project.fullDescription;
+      
+      // Populate stats
+      const statsContainer = document.getElementById('modal-stats')!;
+      statsContainer.innerHTML = `
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-primary mb-1">${project.stats.area}</div>
+          <div class="text-sm text-gray-600 capitalize">área</div>
+        </div>
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-primary mb-1">${project.stats.floors}</div>
+          <div class="text-sm text-gray-600 capitalize">plantas</div>
+        </div>
+        <div class="text-center p-4 bg-gray-50 rounded-lg">
+          <div class="text-2xl font-bold text-primary mb-1">${project.stats.units}</div>
+          <div class="text-sm text-gray-600 capitalize">unidades</div>
+        </div>
+      `;
+      
+      // Populate technologies
+      const techContainer = document.getElementById('modal-technologies')!;
+      techContainer.innerHTML = project.technologies.map(tech => 
+        `<span class="bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">${tech}</span>`
+      ).join('');
+      
+      // Show modal with animation
+      this.modal.classList.remove('invisible');
+      setTimeout(() => {
+        this.modal.classList.remove('opacity-0');
+        this.modalContent.classList.remove('scale-95');
+      }, 10);
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    }
+    
+    private closeModal() {
+      // Hide modal with animation
+      this.modal.classList.add('opacity-0');
+      this.modalContent.classList.add('scale-95');
+      
+      setTimeout(() => {
+        this.modal.classList.add('invisible');
+        document.body.style.overflow = 'auto';
+      }, 300);
+    }
+  }
+
+  // Export for use in other components
+  (window as any).ProjectModal = ProjectModal;
+</script>

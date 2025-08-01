@@ -1,65 +1,109 @@
 ---
+import ProjectModal from './ProjectModal.astro';
+
 // Datos de proyectos de ejemplo
 const projects = [
   {
     id: 1,
     title: "Planta de tratamiento de Aguas servidas",
     description: "Complejo residencial de lujo con 45 plantas y tecnología BIM avanzada para optimización energética.",
+    fullDescription: "Proyecto integral que incluye modelado arquitectónico, estructural y MEP con coordinación multidisciplinaria. Implementación de tecnología BIM avanzada para optimización energética y gestión de facilities.",
     category: "PTAS",
     location: "Madrid, España",
     year: "2023",
     image: "/public/PTAS_pucobre.webp",
-    featured: true
+    featured: true,
+    stats: {
+      area: "85,000 m²",
+      floors: "45 plantas",
+      units: "320 viviendas"
+    },
+    technologies: ["Revit", "Navisworks", "AutoCAD", "3ds Max"]
   },
   {
     id: 2,
     title: "Planta de tratamiento de Aguas servidas",
     description: "Complejo comercial sostenible con certificación LEED y modelado BIM integral para gestión de facilities.",
+    fullDescription: "Desarrollo comercial sostenible con certificación LEED Platinum. Modelado BIM integral para optimización de espacios y gestión eficiente de facilities.",
     category: "PTAS",
     location: "Barcelona, España",
     year: "2023",
     image: "/public/neutralizacion.webp",
-    featured: false
+    featured: false,
+    stats: {
+      area: "45,000 m²",
+      floors: "12 plantas",
+      units: "180 locales"
+    },
+    technologies: ["Revit", "Dynamo", "Navisworks", "Lumion"]
   },
   {
     id: 3,
     title: "Planta de tratamiento osmosis Inversa",
     description: "Infraestructura sanitaria de última generación con tecnología BIM para optimización de flujos médicos.",
+    fullDescription: "Centro de salud de última generación con tecnología BIM para optimización de flujos médicos y gestión eficiente de espacios sanitarios.",
     category: "PTOI",
     location: "Valencia, España",
     year: "2022",
-     image: "/public/pampaconcordia.webp",
-    featured: false
+    image: "/public/pampaconcordia.webp",
+    featured: false,
+    stats: {
+      area: "25,000 m²",
+      floors: "8 plantas",
+      units: "150 consultorios"
+    },
+    technologies: ["Revit", "AutoCAD", "Navisworks", "SketchUp"]
   },
   {
     id: 4,
     title: "Sede Corporativa Bilbao",
     description: "Edificio corporativo inteligente con sistemas BIM integrados para gestión energética avanzada.",
+    fullDescription: "Edificio corporativo inteligente con sistemas BIM integrados para gestión energética avanzada y espacios de trabajo colaborativo.",
     category: "Corporativo",
     location: "Bilbao, España",
     year: "2023",
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop",
-    featured: false
+    featured: false,
+    stats: {
+      area: "35,000 m²",
+      floors: "20 plantas",
+      units: "500 oficinas"
+    },
+    technologies: ["Revit", "Dynamo", "3ds Max", "V-Ray"]
   },
   {
     id: 5,
     title: "Campus Universitario Sevilla",
     description: "Complejo educativo moderno con aulas inteligentes y tecnología BIM para gestión de espacios.",
+    fullDescription: "Complejo educativo moderno con aulas inteligentes y tecnología BIM para gestión eficiente de espacios académicos y administrativos.",
     category: "Educativo",
     location: "Sevilla, España",
     year: "2022",
     image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=400&fit=crop",
-    featured: false
+    featured: false,
+    stats: {
+      area: "65,000 m²",
+      floors: "15 plantas",
+      units: "200 aulas"
+    },
+    technologies: ["Revit", "AutoCAD", "Navisworks", "Lumion"]
   },
   {
     id: 6,
     title: "Eco-Residencial Zaragoza",
     description: "Desarrollo residencial sostenible con certificación Passivhaus y modelado BIM para eficiencia energética.",
+    fullDescription: "Desarrollo residencial sostenible con certificación Passivhaus y modelado BIM para máxima eficiencia energética y confort habitacional.",
     category: "Sostenible",
     location: "Zaragoza, España",
     year: "2023",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop",
-    featured: false
+    featured: false,
+    stats: {
+      area: "55,000 m²",
+      floors: "25 plantas",
+      units: "280 viviendas"
+    },
+    technologies: ["Revit", "Dynamo", "EnergyPlus", "Lumion"]
   }
 ];
 
@@ -100,6 +144,7 @@ const categories = ["Todos", "PTAS", "PTOI", "Sanitario", "Corporativo", "Educat
         <div 
           class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 group cursor-pointer project-card"
           data-category={project.category}
+          data-project-id={project.id}
         >
           <!-- Image Container -->
           <div class="relative overflow-hidden h-48">
@@ -164,10 +209,14 @@ const categories = ["Todos", "PTAS", "PTOI", "Sanitario", "Corporativo", "Educat
   </div>
 </section>
 
+<!-- Include the Project Modal Component -->
+<ProjectModal projects={projects} />
+
 <script>
   class ProjectsFilter {
     private filterButtons: NodeListOf<HTMLElement>;
     private projectCards: NodeListOf<HTMLElement>;
+    private projectModal: any;
 
     constructor() {
       this.filterButtons = document.querySelectorAll('.filter-btn');
@@ -176,6 +225,117 @@ const categories = ["Todos", "PTAS", "PTOI", "Sanitario", "Corporativo", "Educat
     }
 
     private init() {
+      // Initialize modal when available
+      const initModal = () => {
+        if ((window as any).ProjectModal) {
+          this.projectModal = new (window as any).ProjectModal([
+            {
+              id: 1,
+              title: "Planta de tratamiento de Aguas servidas",
+              fullDescription: "Proyecto integral que incluye modelado arquitectónico, estructural y MEP con coordinación multidisciplinaria. Implementación de tecnología BIM avanzada para optimización energética y gestión de facilities.",
+              category: "PTAS",
+              location: "Madrid, España",
+              year: "2023",
+              image: "/public/PTAS_pucobre.webp",
+              stats: {
+                area: "85,000 m²",
+                floors: "45 plantas",
+                units: "320 viviendas"
+              },
+              technologies: ["Revit", "Navisworks", "AutoCAD", "3ds Max"]
+            },
+            {
+              id: 2,
+              title: "Planta de tratamiento de Aguas servidas",
+              fullDescription: "Desarrollo comercial sostenible con certificación LEED Platinum. Modelado BIM integral para optimización de espacios y gestión eficiente de facilities.",
+              category: "PTAS",
+              location: "Barcelona, España",
+              year: "2023",
+              image: "/public/neutralizacion.webp",
+              stats: {
+                area: "45,000 m²",
+                floors: "12 plantas",
+                units: "180 locales"
+              },
+              technologies: ["Revit", "Dynamo", "Navisworks", "Lumion"]
+            },
+            {
+              id: 3,
+              title: "Planta de tratamiento osmosis Inversa",
+              fullDescription: "Centro de salud de última generación con tecnología BIM para optimización de flujos médicos y gestión eficiente de espacios sanitarios.",
+              category: "PTOI",
+              location: "Valencia, España",
+              year: "2022",
+              image: "/public/pampaconcordia.webp",
+              stats: {
+                area: "25,000 m²",
+                floors: "8 plantas",
+                units: "150 consultorios"
+              },
+              technologies: ["Revit", "AutoCAD", "Navisworks", "SketchUp"]
+            },
+            {
+              id: 4,
+              title: "Sede Corporativa Bilbao",
+              fullDescription: "Edificio corporativo inteligente con sistemas BIM integrados para gestión energética avanzada y espacios de trabajo colaborativo.",
+              category: "Corporativo",
+              location: "Bilbao, España",
+              year: "2023",
+              image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop",
+              stats: {
+                area: "35,000 m²",
+                floors: "20 plantas",
+                units: "500 oficinas"
+              },
+              technologies: ["Revit", "Dynamo", "3ds Max", "V-Ray"]
+            },
+            {
+              id: 5,
+              title: "Campus Universitario Sevilla",
+              fullDescription: "Complejo educativo moderno con aulas inteligentes y tecnología BIM para gestión eficiente de espacios académicos y administrativos.",
+              category: "Educativo",
+              location: "Sevilla, España",
+              year: "2022",
+              image: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&h=400&fit=crop",
+              stats: {
+                area: "65,000 m²",
+                floors: "15 plantas",
+                units: "200 aulas"
+              },
+              technologies: ["Revit", "AutoCAD", "Navisworks", "Lumion"]
+            },
+            {
+              id: 6,
+              title: "Eco-Residencial Zaragoza",
+              fullDescription: "Desarrollo residencial sostenible con certificación Passivhaus y modelado BIM para máxima eficiencia energética y confort habitacional.",
+              category: "Sostenible",
+              location: "Zaragoza, España",
+              year: "2023",
+              image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop",
+              stats: {
+                area: "55,000 m²",
+                floors: "25 plantas",
+                units: "280 viviendas"
+              },
+              technologies: ["Revit", "Dynamo", "EnergyPlus", "Lumion"]
+            }
+          ]);
+          
+          // Add click events to project cards
+          this.projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+              const projectId = parseInt(card.getAttribute('data-project-id')!);
+              this.projectModal.openModal(projectId);
+            });
+          });
+        } else {
+          setTimeout(initModal, 100);
+        }
+      };
+      
+      initModal();
+      
+      // Filter functionality
       this.filterButtons.forEach(button => {
         button.addEventListener('click', () => {
           const category = button.getAttribute('data-category');
