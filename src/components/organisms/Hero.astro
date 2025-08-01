@@ -4,18 +4,23 @@ import Button from '../atoms/Button.astro';
 import ImageSlider from './ImageSlider.astro';
 ---
 
-<section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 text-white">
-  <div class="absolute inset-0 bg-black/20"></div>
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-    <div class="text-center flex flex-col justify-center items-center">
-      <h1 class="text-4xl md:text-7xl font-bold mb-6 leading-relaxed md:w-10/12">
-          Modelado 3D BIM de Vanguardia
-       
-      </h1>
-   
-      <p class="text-lg md:text-xl mb-8 text-primary-200 max-w-4xl mx-auto leading-relaxed">
+<section class=" bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-20">
+    <div class="text-center flex flex-col justify-center items-center ">
+<h1 class="text-4xl md:text-7xl font-bold mb-6 leading-[1.5] md:leading-[1.2] md:w-10/12 text-primary text-pretty">
+    Modelado 3D BIM <br> de Vanguardia
+</h1>
+      <p class="text-lg md:text-xl mb-8 text-gray-600 max-w-4xl mx-auto leading-relaxed">
         Desarrollamos soluciones de ingeniería avanzada mediante modelado BIM 3D para proyectos de infraestructura, construcción industrial y obras civiles de gran envergadura
       </p>
+    </div>
+    
+    <section class="pt-10 px-4">
+      <div class="container mx-auto">
+        <ImageSlider 
+        images={projectImages}
+        />
+      </div>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button variant="primary" size="lg" href="#proyectos">
           Ver Proyectos
@@ -24,15 +29,6 @@ import ImageSlider from './ImageSlider.astro';
           Contactar
         </Button>
       </div>
-    </div>
-
-   <section class="pt-16 px-4 ">
-    <div class="container mx-auto">
-      <ImageSlider 
-        images={projectImages}
-        caption="Centro comercial con tecnología BIM integrada"
-      />
-    </div>
   </section>
   </div>
 </section>
