@@ -1,0 +1,103 @@
+---
+// No props needed for this component
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200">
+  <div class="container mx-auto px-6">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo and Brand -->
+      <div class="flex items-center space-x-2 cursor-pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-primary">
+          <rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect>
+          <path d="M9 22v-4h6v4"></path>
+          <path d="M8 6h.01"></path>
+          <path d="M16 6h.01"></path>
+          <path d="M12 6h.01"></path>
+          <path d="M12 10h.01"></path>
+          <path d="M12 14h.01"></path>
+          <path d="M16 10h.01"></path>
+          <path d="M16 14h.01"></path>
+          <path d="M8 10h.01"></path>
+          <path d="M8 14h.01"></path>
+        </svg>
+        <span class="text-xl font-bold text-gray-900">BIM 3D Studio</span>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-8">
+        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
+          Inicio
+        </button>
+        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
+          Clientes
+        </button>
+        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
+          Proyectos
+        </button>
+        <button class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
+          Equipo
+        </button>
+        <button class="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200">
+          Contactar
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button 
+        class="md:hidden p-2 text-gray-700 hover:text-primary transition-colors"
+        id="mobile-menu-button"
+        aria-label="Toggle mobile menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+          <line x1="4" x2="20" y1="12" y2="12"></line>
+          <line x1="4" x2="20" y1="6" y2="6"></line>
+          <line x1="4" x2="20" y1="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation Menu -->
+    <div 
+      class="md:hidden overflow-hidden bg-white/95 backdrop-blur-md border-t border-gray-200 transition-all duration-300"
+      id="mobile-menu"
+      style="opacity: 0; height: 0px;"
+    >
+      <div class="py-4 space-y-2">
+        <button class="block w-full text-left px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200 rounded-md">
+          Inicio
+        </button>
+        <button class="block w-full text-left px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200 rounded-md">
+          Clientes
+        </button>
+        <button class="block w-full text-left px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200 rounded-md">
+          Proyectos
+        </button>
+        <button class="block w-full text-left px-4 py-2 text-gray-700 hover:text-primary hover:bg-gray-50 transition-all duration-200 rounded-md">
+          Equipo
+        </button>
+        <button class="w-full text-left px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium mt-4">
+          Contactar
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu toggle functionality
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  let isMenuOpen = false;
+
+  mobileMenuButton?.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    
+    if (isMenuOpen) {
+      mobileMenu!.style.opacity = '1';
+      mobileMenu!.style.height = 'auto';
+    } else {
+      mobileMenu!.style.opacity = '0';
+      mobileMenu!.style.height = '0px';
+    }
+  });
+</script>
