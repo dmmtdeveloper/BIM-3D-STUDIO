@@ -3,12 +3,12 @@ export interface Props {
   images: {
     src: string;
     alt: string;
+    caption?: string;
   }[];
-  caption?: string;
   className?: string;
 }
 
-const { images, caption, className = '' } = Astro.props;
+const { images, className = '' } = Astro.props;
 ---
 
 <div class={`relative mb-8 group max-w-5xl mx-auto ${className}`}>
@@ -64,39 +64,35 @@ const { images, caption, className = '' } = Astro.props;
         }`}
         aria-label={`Ir a imagen ${index + 1}`}
         data-index={index}
-    
       ></button>
     ))}
   </div>
 
-  <!-- Caption -->
-  {caption && (
-    <figcaption class="text-sm text-gray-600 mt-4 italic text-center">
-      {caption}
-    </figcaption>
-  )}
+  <!-- Dynamic Caption -->
+  <figcaption 
+    id="dynamic-caption" 
+    class="text-sm text-gray-600 mt-4 italic text-center transition-opacity duration-300"
+  >
+    {images[0]?.caption || ''}
+  </figcaption>
 </div>
 
-<script>
+<script define:vars={{ images }}>
   class ImageSlider {
-    private container: HTMLElement;
-    private prevBtn: HTMLElement;
-    private nextBtn: HTMLElement;
-    private dots: NodeListOf<HTMLElement>;
-    private currentIndex: number = 0;
-    private totalImages: number;
-
     constructor() {
-      this.container = document.getElementById('slider-container')!;
-      this.prevBtn = document.getElementById('prev-btn')!;
-      this.nextBtn = document.getElementById('next-btn')!;
+      this.container = document.getElementById('slider-container');
+      this.prevBtn = document.getElementById('prev-btn');
+      this.nextBtn = document.getElementById('next-btn');
       this.dots = document.querySelectorAll('.dot-indicator');
+      this.caption = document.getElementById('dynamic-caption');
+      this.currentIndex = 0;
       this.totalImages = this.dots.length;
+      this.images = images;
 
       this.init();
     }
 
-    private init() {
+    init() {
       // Navigation buttons
       this.prevBtn.addEventListener('click', () => this.goToPrevious());
       this.nextBtn.addEventListener('click', () => this.goToNext());
@@ -116,24 +112,24 @@ const { images, caption, className = '' } = Astro.props;
       this.startAutoPlay();
     }
 
-    private goToSlide(index: number) {
+    goToSlide(index) {
       this.currentIndex = index;
       this.updateSlider();
     }
 
-    private goToNext() {
+    goToNext() {
       this.currentIndex = (this.currentIndex + 1) % this.totalImages;
       this.updateSlider();
     }
 
-    private goToPrevious() {
+    goToPrevious() {
       this.currentIndex = this.currentIndex === 0 
         ? this.totalImages - 1 
         : this.currentIndex - 1;
       this.updateSlider();
     }
 
-    private updateSlider() {
+    updateSlider() {
       // Update container position
       const translateX = -this.currentIndex * 100;
       this.container.style.transform = `translateX(${translateX}%)`;
@@ -146,9 +142,16 @@ const { images, caption, className = '' } = Astro.props;
           dot.className = 'w-3 h-3 rounded-full transition-all duration-300 dot-indicator bg-gray-400 hover:bg-gray-500';
         }
       });
+
+      // Update caption with fade effect
+      this.caption.style.opacity = '0';
+      setTimeout(() => {
+        this.caption.textContent = this.images[this.currentIndex]?.caption || '';
+        this.caption.style.opacity = '1';
+      }, 150);
     }
 
-    private startAutoPlay() {
+    startAutoPlay() {
       setInterval(() => {
         this.goToNext();
       }, 5000); // Change slide every 5 seconds
