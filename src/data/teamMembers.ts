@@ -1,0 +1,46 @@
+import type { TeamMember } from '../types/TeamMember';
+
+export const teamMembers: TeamMember[] = [
+  {
+    id: "david-martinez-01",
+    name: "David Martínez Tapia",
+    position: "Coordinador BIM",
+    location: "Concón - Chile",
+    experience: "12 años de experiencia",
+    image: "/david.webp",
+    education: "Dibujo de proyectos Arquitectura e Ingeniería - Universidad INACAP",
+    certifications: [
+      "Autodesk AutoCad Certified Professional",
+      "Autodesk AutoCad Civil 3D Certified Professional",
+      "Autodesk Revit Architectural Certified Professional",
+      "Autodesk Revit MEP Certified Professional",
+    ],
+    specialization: "Modelado Arquitectónico Avanzado",
+    skills: ["Revit", "Navisworks", "AutoCAD", "Inventor", "SketchUp"],
+    bio: "Dibujante Proyectista especializado en BIM con más de una década liderando proyectos complejos. Experto en Revit, Navisworks y coordinación multidisciplinaria.",
+    projectsCompleted: 85,
+    email: "david.martinez@bim3dstudio.com",
+    linkedin: "#",
+  },
+  {
+    id: "david-martinez-02",
+    name: "David Martínez Tapia",
+    position: "Director BIM & Arquitecto Senior",
+    location: "Madrid, España",
+    experience: "15 años de experiencia",
+    image: "/david.webp",
+    education: "Dibujo de proyectos Arquitectura e Ingeniería - Universidad INACAP",
+    certifications: [
+      "Autodesk AutoCad Certified Professional",
+      "Autodesk AutoCad Civil 3D Certified Professional",
+      "Autodesk Revit Architectural Certified Professional",
+      "Autodesk Revit MEP Certified Professional",
+    ],
+    specialization: "Coordinación Multidisciplinaria",
+    skills: ["Revit", "Navisworks", "AutoCAD", "BIM 360", "Dynamo"],
+    bio: "Arquitecto senior especializado en metodologías BIM con amplia experiencia en coordinación de proyectos complejos.",
+    projectsCompleted: 120,
+    email: "david.martinez.senior@bim3dstudio.com",
+    linkedin: "#",
+  },
+];

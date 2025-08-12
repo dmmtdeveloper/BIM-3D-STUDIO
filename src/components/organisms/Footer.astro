@@ -1,4 +1,6 @@
 ---
+import LogoFooter from "../atoms/LogoFooter.astro";
+
 // No props needed for this footer
 ---
 
@@ -7,56 +9,57 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       <!-- Columna 1: Información de la empresa -->
       <div>
-        <h3 class="text-xl font-bold text-slate-900 mb-4">
-          BIM 3D Studio
-        </h3>
+        <LogoFooter class="fill-black size-80 h-20" />
         <p class="text-slate-600">
-          Especialistas en modelado 3D BIM para proyectos arquitectónicos y de construcción de alta complejidad.
+          Especialistas en modelado 3D BIM para proyectos arquitectónicos y de
+          construcción de alta complejidad.
         </p>
       </div>
-      
+
       <!-- Columna 2: Contacto -->
       <div>
-        <h4 class="text-lg font-semibold text-slate-900 mb-4">
-          Contacto
-        </h4>
+        <h4 class="text-lg font-semibold text-slate-900 mb-4">Contacto</h4>
         <div class="space-y-2 text-slate-600">
           <p>
-            <a href="mailto:info@bim3dstudio.com" class="hover:text-blue-600 transition-colors">
+            <a
+              href="mailto:info@bim3dstudio.com"
+              class="hover:text-blue-600 transition-colors"
+            >
               info@bim3dstudio.com
             </a>
           </p>
           <p>
-            <a href="tel:+34123456789" class="hover:text-blue-600 transition-colors">
+            <a
+              href="tel:+34123456789"
+              class="hover:text-blue-600 transition-colors"
+            >
               +34 123 456 789
             </a>
           </p>
           <p>Madrid, España</p>
         </div>
       </div>
-      
+
       <!-- Columna 3: Redes sociales -->
       <div>
-        <h4 class="text-lg font-semibold text-slate-900 mb-4">
-          Síguenos
-        </h4>
+        <h4 class="text-lg font-semibold text-slate-900 mb-4">Síguenos</h4>
         <div class="flex space-x-4">
-          <a 
-            href="#" 
+          <a
+            href="#"
             class="text-slate-600 hover:text-blue-600 transition-colors"
             aria-label="LinkedIn"
           >
             LinkedIn
           </a>
-          <a 
-            href="#" 
+          <a
+            href="#"
             class="text-slate-600 hover:text-blue-600 transition-colors"
             aria-label="Instagram"
           >
             Instagram
           </a>
-          <a 
-            href="#" 
+          <a
+            href="#"
             class="text-slate-600 hover:text-blue-600 transition-colors"
             aria-label="Twitter"
           >
@@ -65,12 +68,10 @@
         </div>
       </div>
     </div>
-    
+
     <!-- Línea divisoria y copyright -->
     <div class="border-t border-gray-200 mt-8 pt-8 text-center text-slate-600">
-      <p>
-        © 2024 BIM 3D Studio. Todos los derechos reservados.
-      </p>
+      <p>© 2024 BIM 3D Studio. Todos los derechos reservados.</p>
     </div>
   </div>
 </footer>
