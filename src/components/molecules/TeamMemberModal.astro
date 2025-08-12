@@ -1,28 +1,12 @@
 ---
-export interface Props {
-  isOpen: boolean;
-  member: {
-    name: string;
-    position: string;
-    location: string;
-    experience: string;
-    image: string;
-    education: string;
-    certifications: string[];
-    specialization: string;
-    skills: string[];
-    bio: string;
-    projectsCompleted: number;
-    email: string;
-    linkedin?: string;
-  };
-}
+import type { TeamMemberModalProps } from "../../interfaces/TeamMember";
 
-const { isOpen, member } = Astro.props;
+const { isOpen, member } = Astro.props as TeamMemberModalProps;
+
 ---
 
 <div 
-  id="team-member-modal" 
+  id={`team-member-modal-${member.id}`}
   class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4 transition-opacity duration-300" 
   style={isOpen ? "opacity: 1; pointer-events: auto;" : "opacity: 0; pointer-events: none;"}
 >
@@ -46,8 +30,9 @@ const { isOpen, member } = Astro.props;
           </div>
         </div>
         <button 
-          id="close-team-modal" 
+          id={`close-team-modal-${member.id}`}
           class="text-muted-foreground hover:text-foreground transition-colors text-xl"
+          aria-label="Cerrar modal"
         >
           ✕
         </button>
@@ -69,7 +54,6 @@ const { isOpen, member } = Astro.props;
           
           <h4 class="font-semibold text-foreground mb-3 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award w-5 h-5 mr-2">
-              <path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
               <circle cx="12" cy="8" r="6"></circle>
             </svg>
             Certificaciones
@@ -110,21 +94,26 @@ const { isOpen, member } = Astro.props;
         </div>
         <div class="flex space-x-4">
           <a 
-            href={`mailto:${member.email}`} 
-            class="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+            href={member.linkedin} 
+            class="bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors flex items-center space-x-2"
           >
-            Contactar
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin w-4 h-4">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect width="4" height="12" x="2" y="9"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <span>LinkedIn</span>
           </a>
-          {member.linkedin && (
-            <a 
-              href={member.linkedin} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="bg-accent text-accent-foreground px-4 py-2 rounded-lg font-medium hover:bg-accent/80 transition-colors"
-            >
-              LinkedIn
-            </a>
-          )}
+          <a 
+            href={`mailto:${member.email}`} 
+            class="bg-secondary text-secondary-foreground px-4 py-2 rounded-lg hover:bg-secondary/90 transition-colors flex items-center space-x-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4">
+              <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+            </svg>
+            <span>Contactar</span>
+          </a>
         </div>
       </div>
     </div>

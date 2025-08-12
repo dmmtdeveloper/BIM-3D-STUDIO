@@ -1,106 +1,68 @@
 ---
 import TeamMemberModal from '../molecules/TeamMemberModal.astro';
+import TeamMemberCard from '../molecules/TeamMemberCard.astro';
+import { teamMembers } from '../../data/teamMembers';
 
-// Team member data
-const teamMember = {
-  name: "Carlos Mendoza",
-  position: "Director BIM & Arquitecto Senior",
-  location: "Madrid, España",
-  experience: "12 años de experiencia",
-  image: "/public/david.webp",
-  education: "Máster en Arquitectura - Universidad Politécnica de Madrid",
-  certifications: [
-    "Autodesk Certified Professional",
-    "BIM Manager Certification",
-    "LEED AP"
-  ],
-  specialization: "Modelado Arquitectónico Avanzado",
-  skills: ["Revit", "Navisworks", "AutoCAD", "BIM 360", "Dynamo"],
-  bio: "Arquitecto especializado en BIM con más de una década liderando proyectos complejos. Experto en Revit, Navisworks y coordinación multidisciplinaria.",
-  projectsCompleted: 85,
-  email: "carlos.mendoza@bim3dstudio.com",
-  linkedin: "#"
-};
+
+// Obtener todos los miembros del equipo desde la fuente de datos centralizada
+const members = teamMembers;
 ---
 
-<section id="team" class="py-20 bg-accent/5" data-magicpath-id="0" data-magicpath-path="TeamSection.tsx">
-  <div class="container mx-auto px-6" data-magicpath-id="1" data-magicpath-path="TeamSection.tsx">
-    <div class="text-center mb-16" data-magicpath-id="2" data-magicpath-path="TeamSection.tsx" style="opacity: 1; transform: none;">
-      <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-6" data-magicpath-id="3" data-magicpath-path="TeamSection.tsx">Nuestro Equipo</h2>
-      <p class="text-xl text-muted-foreground max-w-3xl mx-auto" data-magicpath-id="4" data-magicpath-path="TeamSection.tsx">Profesionales altamente cualificados con expertise en las últimas tecnologías BIM y años de experiencia en proyectos de gran escala</p>
+<section id="team" class="py-20 bg-accent/5">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-16" style="opacity: 1; transform: none;">
+      <h2 class="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        Nuestro Equipo
+      </h2>
+      <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+        Profesionales altamente cualificados con expertise en las últimas tecnologías BIM y años de experiencia en proyectos de gran escala
+      </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-magicpath-id="5" data-magicpath-path="TeamSection.tsx" style="opacity: 1;">
-      <div class="bg-card rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-border group cursor-pointer team-member-card" data-magicpath-id="6" data-magicpath-path="TeamSection.tsx" style="opacity: 1; transform: none;">
-        <div class="relative overflow-hidden h-64" data-magicpath-id="7" data-magicpath-path="TeamSection.tsx">
-          <img alt="Carlos Mendoza" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-magicpath-id="8" data-magicpath-path="TeamSection.tsx" src="/public/david.webp">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-magicpath-id="9" data-magicpath-path="TeamSection.tsx"></div>
-          <div class="absolute bottom-4 left-4 right-4 flex justify-center space-x-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" data-magicpath-id="10" data-magicpath-path="TeamSection.tsx">
-            <a href="#" class="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-primary transition-colors" data-magicpath-id="11" data-magicpath-path="TeamSection.tsx" tabindex="0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin w-4 h-4" data-magicpath-id="12" data-magicpath-path="TeamSection.tsx">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect width="4" height="12" x="2" y="9"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-            </a>
-            <a href="mailto:carlos.mendoza@bim3dstudio.com" class="bg-white/20 backdrop-blur-sm text-white p-2 rounded-full hover:bg-primary transition-colors" data-magicpath-id="13" data-magicpath-path="TeamSection.tsx" tabindex="0">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail w-4 h-4" data-magicpath-id="14" data-magicpath-path="TeamSection.tsx">
-                <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-              </svg>
-            </a>
-          </div>
-          <div class="absolute top-4 right-4" data-magicpath-id="15" data-magicpath-path="TeamSection.tsx">
-            <span class="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium" data-magicpath-id="16" data-magicpath-path="TeamSection.tsx">12 años</span>
-          </div>
-        </div>
-        <div class="p-6" data-magicpath-id="17" data-magicpath-path="TeamSection.tsx">
-          <h3 class="text-xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors" data-magicpath-id="18" data-magicpath-path="TeamSection.tsx">Carlos Mendoza</h3>
-          <p class="text-primary font-medium mb-2" data-magicpath-id="19" data-magicpath-path="TeamSection.tsx">Director BIM & Arquitecto Senior</p>
-          <p class="text-muted-foreground text-sm mb-4" data-magicpath-id="20" data-magicpath-path="TeamSection.tsx">Modelado Arquitectónico Avanzado</p>
-          <div class="space-y-2 mb-4" data-magicpath-id="21" data-magicpath-path="TeamSection.tsx">
-            <div class="flex items-center text-sm text-muted-foreground" data-magicpath-id="22" data-magicpath-path="TeamSection.tsx">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin w-4 h-4 mr-2" data-magicpath-id="23" data-magicpath-path="TeamSection.tsx">
-                <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              Madrid, España
-            </div>
-            <div class="flex items-center text-sm text-muted-foreground" data-magicpath-id="24" data-magicpath-path="TeamSection.tsx">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase w-4 h-4 mr-2" data-magicpath-id="25" data-magicpath-path="TeamSection.tsx">
-                <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                <rect width="20" height="14" x="2" y="6" rx="2"></rect>
-              </svg>
-              85 proyectos completados
-            </div>
-          </div>
-          <div class="flex flex-wrap gap-2 mb-4" data-magicpath-id="26" data-magicpath-path="TeamSection.tsx">
-            <span class="bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium" data-magicpath-id="27" data-magicpath-path="TeamSection.tsx">Revit</span>
-            <span class="bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium" data-magicpath-id="27" data-magicpath-path="TeamSection.tsx">Navisworks</span>
-            <span class="bg-accent text-accent-foreground px-2 py-1 rounded text-xs font-medium" data-magicpath-id="27" data-magicpath-path="TeamSection.tsx">AutoCAD</span>
-            <span class="bg-muted text-muted-foreground px-2 py-1 rounded text-xs" data-magicpath-id="28" data-magicpath-path="TeamSection.tsx">+2</span>
-          </div>
-          <div class="text-primary font-medium group-hover:translate-x-1 transition-transform duration-200" data-magicpath-id="29" data-magicpath-path="TeamSection.tsx">
-            Ver perfil completo →
-          </div>
-        </div>
-      </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" style="opacity: 1;">
+      {members.map((member, index) => (
+        <TeamMemberCard member={member} index={index} />
+      ))}
     </div>
   </div>
 </section>
 
-<!-- Team Member Modal -->
-<TeamMemberModal isOpen={false} member={teamMember} />
+<!-- Modales para cada miembro del equipo -->
+{members.map(member => (
+  <TeamMemberModal isOpen={false} member={member} />
+))}
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const teamCard = document.querySelector('.team-member-card');
-    const modal = document.getElementById('team-member-modal');
-    const modalContent = modal?.querySelector('div');
+    const teamCards = document.querySelectorAll('.team-member-card');
     
-    teamCard?.addEventListener('click', () => {
-      modal?.style.setProperty('opacity', '1');
-      modal?.style.setProperty('pointer-events', 'auto');
-      modalContent?.style.setProperty('transform', 'scale(1)');
+    teamCards.forEach(card => {
+      card.addEventListener('click', () => {
+        const memberId = card.getAttribute('data-member-id');
+        const modal = document.getElementById(`team-member-modal-${memberId}`);
+        const modalContent = modal?.querySelector('div');
+        
+        if (modal && modalContent) {
+          modal.style.setProperty('opacity', '1');
+          modal.style.setProperty('pointer-events', 'auto');
+          modalContent.style.setProperty('transform', 'scale(1)');
+        }
+      });
+    });
+    
+    // Cerrar modales
+    const closeButtons = document.querySelectorAll('[id^="close-team-modal"]');
+    closeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const modal = button.closest('[id^="team-member-modal"]');
+        const modalContent = modal?.querySelector('div');
+        
+        if (modal && modalContent) {
+          (modal as HTMLElement).style.setProperty('opacity', '0');
+          (modal as HTMLElement).style.setProperty('pointer-events', 'none');
+          modalContent.style.setProperty('transform', 'scale(0.95)');
+        }
+      });
     });
   });
 </script>
