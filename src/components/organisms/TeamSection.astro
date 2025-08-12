@@ -15,11 +15,12 @@ const members = teamMembers;
         Nuestro Equipo
       </h2>
       <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
-        Profesionales altamente cualificados con expertise en las últimas tecnologías BIM y años de experiencia en proyectos de gran escala
+        Profesionales altamente capacitados con experiencia en el diseño, construcción y gestión de proyectos de infraestructura.
+
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" style="opacity: 1;">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style="opacity: 1;">
       {members.map((member, index) => (
         <TeamMemberCard member={member} index={index} />
       ))}

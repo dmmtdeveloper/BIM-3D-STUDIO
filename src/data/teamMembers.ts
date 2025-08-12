@@ -46,4 +46,27 @@ export const teamMembers: TeamMember[] = [
     email: "arnaldo.gonzales@bim3dstudio.cl",
     linkedin: "#",
   },
+
+  {
+    id: "Claudia de la barra",
+    name: "Claudia de la Barra",
+    position: "CEO y Coordinadora",
+    location: "Concón, Valparaiso - Chile",
+    experience: "8 años de experiencia",
+    image: "/claudia.webp",
+    education: "Ingeniero Comercial - Universidad Adolfo Ibañez",
+    certifications: [
+      "Autodesk AutoCad Certified Professional",
+      "Autodesk AutoCad Civil 3D Certified Professional",
+      "Autodesk Revit Architectural Certified Professional",
+      "Autodesk Revit MEP Certified Professional",
+    ],
+    specialization: "Modelado BIM Avanzado",
+    skills: ["Revit", "AutoCAD", "AutoCad Civil 3D"],
+    bio: "Modelador BIM Especializado en creacion de familias parametricas",
+
+    projectsCompleted: 120,
+    email: "arnaldo.gonzales@bim3dstudio.cl",
+    linkedin: "#",
+  },
 ];

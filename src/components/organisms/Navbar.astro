@@ -4,7 +4,7 @@ import Logo from "../atoms/Logo.astro";
 // No props needed for this component
 ---
 
-<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all">
+<nav id="navbar"  class="fixed top-0 left-0 right-0 z-50 transition-all">
   <div class="container mx-auto px-6">
     <div class="flex items-center justify-between h-16">
       <!-- Logo and Brand -->
@@ -14,7 +14,7 @@ import Logo from "../atoms/Logo.astro";
 
       <!-- Desktop Navigation -->
       <div class="hidden md:flex items-center space-x-8">
-        <button  class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
+        <a href="#inicio"  class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
           Inicio
         </button>
         <a href="#clients" class="text-gray-700 hover:text-primary transition-colors duration-200 font-medium">
