@@ -1,44 +1,7 @@
 ---
 import TestimonialCard from '../molecules/TestimonialCard.astro';
-
-const testimonials = [
-  {
-    company: "Constructora Moderna",
-    project: "Torre Residencial Madrid",
-    testimonial: "Su trabajo en modelado BIM transformó completamente nuestro proceso de construcción.",
-    rating: 5
-  },
-  {
-    company: "Arquitectos Vanguardia",
-    project: "Centro Comercial Barcelona",
-    testimonial: "Precisión excepcional en cada detalle del modelo 3D. Altamente recomendados.",
-    rating: 5
-  },
-  {
-    company: "Ingeniería Avanzada",
-    project: "Hospital Regional Valencia",
-    testimonial: "La integración BIM nos permitió reducir costos y tiempos de ejecución significativamente.",
-    rating: 5
-  },
-  {
-    company: "Desarrollos Urbanos",
-    project: "Complejo Residencial Sevilla",
-    testimonial: "Profesionalismo y calidad técnica sobresalientes en cada entrega.",
-    rating: 5
-  },
-  {
-    company: "Construcciones Elite",
-    project: "Oficinas Corporativas Bilbao",
-    testimonial: "Su expertise en BIM 3D superó nuestras expectativas más altas.",
-    rating: 5
-  },
-  {
-    company: "Proyectos Sostenibles",
-    project: "Edificio Ecológico Zaragoza",
-    testimonial: "Innovación y sostenibilidad perfectamente integradas en sus modelos.",
-    rating: 5
-  }
-];
+import ClientLogosSlider from '../molecules/ClientLogosSlider.astro';
+import { testimonials } from '../../data/testimonials';
 ---
 
 <section id="clients" class="py-20 bg-gray-50">
@@ -47,15 +10,29 @@ const testimonials = [
       <h2 class="text-4xl md:text-5xl font-bold text-primary mb-4">
         Nuestros Clientes
       </h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-12">
         Colaboramos con las empresas más prestigiosas del sector, entregando soluciones BIM que superan expectativas
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {testimonials.map((testimonial) => (
-        <TestimonialCard {...testimonial} />
-      ))}
+    <!-- Slider de Logos de Clientes -->
+    <div class="mb-20">
+      <!-- <h3 class="text-2xl font-semibold text-center text-gray-800 mb-8">
+        Empresas que confían en nosotros
+      </h3> -->
+      <ClientLogosSlider className="rounded-xl shadow-sm border border-gray-200" />
+    </div>
+    
+    <!-- Testimoniales -->
+    <div>
+      <h3 class="text-2xl font-semibold text-center text-gray-800 mb-12">
+        Lo que dicen nuestros clientes
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {testimonials.map((testimonial) => (
+          <TestimonialCard {...testimonial} />
+        ))}
+      </div>
     </div>
   </div>
 </section>
