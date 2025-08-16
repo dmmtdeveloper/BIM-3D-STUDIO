@@ -1,4 +1,4 @@
-import type { TeamMember } from '../types/TeamMember';
+import type { TeamMember } from "../types/TeamMember";
 
 export const teamMembers: TeamMember[] = [
   {
@@ -8,7 +8,8 @@ export const teamMembers: TeamMember[] = [
     location: "Concón, Valparaiso - Chile",
     experience: "10 años de experiencia",
     image: "/david.webp",
-    education: "Dibujo de proyectos Arquitectura e Ingeniería - Universidad INACAP",
+    education:
+      "Dibujo de proyectos Arquitectura e Ingeniería - Universidad INACAP",
     certifications: [
       "Autodesk AutoCad Certified Professional",
       "Autodesk AutoCad Civil 3D Certified Professional",
